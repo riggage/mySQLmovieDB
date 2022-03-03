@@ -1,7 +1,7 @@
 const yargs = require("yargs")
 
 const { sequelize } = require("./db/connection")
-const { addMovie, listMovies, updateMovies } = require("./movie/movieFunctions")
+const { addMovie, listMovies, updateMovie, deleteMovie } = require("./movie/movieFunctions")
 
 const app = async (yargsObj) => {
     try {
@@ -12,7 +12,9 @@ const app = async (yargsObj) => {
         } else if (yargsObj.list) {
             console.log(JSON.stringify(await listMovies({[yargsObj.key]: yargsObj.value}), null, 2))
         } else if (yargsObj.update) {
-            await updateMovies({[yargsObj.key]: yargsObj.value})
+            console.log(await updateMovie({[yargsObj.key]: yargsObj.actor }, null,2))
+        } else if (yargsObj.delete) {
+            await deleteMovie({[yargsObj.key]: yargsObj.title})
             console.log(JSON.stringify(await listMovies(), null, 2))
         }
     } catch (error) {

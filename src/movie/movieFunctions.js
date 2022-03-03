@@ -1,4 +1,3 @@
-const Moive = require("./movieTable")
 const Movie = require("./movieTable")
 
 exports.addMovie = async (movieObj) => {
@@ -10,24 +9,39 @@ exports.addMovie = async (movieObj) => {
 }
 
 exports.listMovies = async (filterObj) => {
-    console.log("filterObj: ", filterObj);
+    // console.log("filterObj: ", filterObj);
     try {
-        if (filterObj.undefined === undefined) {
-            return await Movie.findAll();
+        if (filterObj.title || filterObj.actor) {
+            // return await Movie.findOne({where: filterObj});
+            return await Movie.findAll({where: filterObj});
+
         } else {
-            return await Movie.findOne({where: filterObj});
+            return await Movie.findAll();
         }
+        
     } catch (error) {
         console.log(error);
     }
 };
 
-exports.updateMovies = async (updateObj) => {
+exports.updateMovie = async (updateObj) => {
     try {
-        if (updateObj) {
-            return await Moive.updateOne({where: updateObj})
+        if (updateObj.title || updateObj.actor) {
+            return await Movie.update({where: updateObj})
         } else {
-            return await Moive.updateAll()
+            console.log("Cannot find an entry with that name")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.deleteMovie = async (deleteObj) => {
+    try {
+        if (deleteObj.title || deleteObj.actor) {
+            return await Movie.destroy({where: deleteObj})
+        } else {
+            console.log("Cannot find an entry with that name")
         }
     } catch (error) {
         console.log(error)
