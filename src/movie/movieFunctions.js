@@ -24,17 +24,18 @@ exports.listMovies = async (filterObj) => {
     }
 };
 
-exports.updateMovie = async (updateObj) => {
+exports.updateMovie = async (param, filterObj, update) =>{
     try {
-        if (updateObj.title || updateObj.actor) {
-            return await Movie.update({where: updateObj})
-        } else {
-            console.log("Cannot find an entry with that name")
+        if (param === "title"){
+        await Movie.update({title: update}, {where: {title: filterObj}})
+        } else if (param === "actor") {
+            const test =  await Movie.update({actor: update}, {where: {actor: filterObj}})
+            console.log(test)
         }
     } catch (error) {
         console.log(error)
     }
-}
+};
 
 exports.deleteMovie = async (deleteObj) => {
     try {

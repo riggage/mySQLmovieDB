@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize")
 const { sequelize } = require("../db/connection")
 
-const Moive = sequelize.define("Movie", {
+const Movie = sequelize.define("Movie", {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -13,4 +13,4 @@ const Moive = sequelize.define("Movie", {
     },
 })
 
-module.exports = Moive
+module.exports = Movie
